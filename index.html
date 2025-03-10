@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World Animado</title>
+    <style>
+		/* Efecto de haz de luz */
+        @keyframes light {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 30px rgba(255, 255, 255, 0.6), 0 0 50px rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.7), 0 0 70px rgba(255, 255, 255, 0.4);
+            }
+        }
+		
+        /* Fullscreen y centrar el contenido */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+			height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #282c34;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Centrar los textos y asegurar el efecto */
+        .content {
+            text-align: center;
+            max-width: 80%;
+            margin: auto;
+        }
+		
+		.text {
+			transition: all 4s ease-in-out 0s;
+			opacity: 0;
+		}
+		
+		.active {
+			opacity:1;
+		}
+
+        #languageText {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 20px;
+			transition: all 2s ease-in 0s;
+			min-height: 30px;
+        }
+		
+		/* Efecto de haz de luz */
+        .light-effect {
+            color: white;
+            font-size: 4rem;
+            text-align: center;
+            position: relative;
+            animation: light 1s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="text light-effect" id="helloWorldText">.....</div>
+        <div class="text" id="languageText"></div>
+    </div>
+
+    <script>
+        // Lista de idiomas con sus traducciones
+        const languages = [
+			{ code: "en", name: "English", helloWorld: "Hello World" },
+			{ code: "es", name: "Spanish", helloWorld: "Hola Mundo" },
+			{ code: "fr", name: "French", helloWorld: "Bonjour le Monde" },
+			{ code: "de", name: "German", helloWorld: "Hallo Welt" },
+			{ code: "it", name: "Italian", helloWorld: "Ciao Mondo" },
+			{ code: "pt", name: "Portuguese", helloWorld: "Olá Mundo" },
+			{ code: "ru", name: "Russian", helloWorld: "Привет мир" },
+			{ code: "ja", name: "Japanese", helloWorld: "こんにちは世界" },
+			{ code: "zh", name: "Chinese", helloWorld: "你好，世界" },
+			{ code: "ar", name: "Arabic", helloWorld: "مرحبًا بالعالم" },
+			{ code: "hi", name: "Hindi", helloWorld: "नमस्ते दुनिया" },
+			{ code: "bn", name: "Bengali", helloWorld: "হ্যালো বিশ্ব" },
+			{ code: "pa", name: "Punjabi", helloWorld: "ਹੈਲੋ ਦੁਨੀਆ" },
+			{ code: "jv", name: "Javanese", helloWorld: "Halo Dunia" },
+			{ code: "ko", name: "Korean", helloWorld: "안녕하세요, 세계" },
+			{ code: "fr", name: "French", helloWorld: "Bonjour le Monde" },
+			{ code: "vi", name: "Vietnamese", helloWorld: "Xin chào thế giới" },
+			{ code: "tl", name: "Tagalog", helloWorld: "Kamusta Mundo" },
+			{ code: "te", name: "Telugu", helloWorld: "హలో ప్రపంచం" },
+			{ code: "th", name: "Thai", helloWorld: "สวัสดีโลก" },
+			{ code: "tr", name: "Turkish", helloWorld: "Merhaba Dünya" },
+			{ code: "fa", name: "Persian", helloWorld: "سلام دنیا" },
+			{ code: "mr", name: "Marathi", helloWorld: "नमस्कार जग" },
+			{ code: "uk", name: "Ukrainian", helloWorld: "Привіт світ" },
+			{ code: "pl", name: "Polish", helloWorld: "Witaj świecie" },
+			{ code: "ro", name: "Romanian", helloWorld: "Salut Lume" },
+			{ code: "sr", name: "Serbian", helloWorld: "Здраво свете" },
+			{ code: "no", name: "Norwegian", helloWorld: "Hei Verden" },
+			{ code: "fi", name: "Finnish", helloWorld: "Hei maailma" },
+			{ code: "sv", name: "Swedish", helloWorld: "Hej världen" }
+		];
+		
+		const helloWorldText = document.getElementById("helloWorldText");
+        const languageText = document.getElementById("languageText");
+
+        let currentIndex = 0;
+
+        function updateText() {
+			helloWorldText.classList.remove("active");
+			languageText.classList.remove("active");
+
+            // Esperamos el tiempo de desvanecimiento
+            setTimeout(() => {
+				// Cambiar el texto de "Hola Mundo"
+				helloWorldText.innerHTML = languages[currentIndex].helloWorld;
+				
+				helloWorldText.classList.add("active");
+				console.log('helloWorldText', 'add active');
+				
+                setTimeout(() => {
+					languageText.classList.add("active");
+					
+					// Cambiar el texto del idioma
+					languageText.innerHTML = `(${languages[currentIndex].name})`;
+                }, 2500);
+            }, 2000);			
+
+            // Aumentar el índice para la siguiente traducción
+            currentIndex = (currentIndex + 1) % languages.length;
+        }
+
+        // Iniciar con la primera traducción
+        updateText();
+
+        // Cambiar la traducción cada 5 segundos
+        setInterval(() => {
+			console.log('setInterval', '5');
+            updateText();
+        }, 10000); // Cambiar cada 10 segundos
+    </script>
+</body>
+</html>
